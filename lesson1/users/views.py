@@ -43,7 +43,7 @@ class UserProfileView(CommonContextMixin, UpdateView):
 
 
 class UserEmailVerification(CommonContextMixin, TemplateView):
-    title = 'GeekShop - Подтверждение почты'
+    title = 'GeekShop - Подтверждение электронной почты'
     template_name = 'users/email_verification.html'
 
     def get(self, request, *args, **kwargs):

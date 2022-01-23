@@ -23,7 +23,7 @@ class UserRegistrationView(CommonContextMixin, SuccessMessageMixin, CreateView):
     form_class = UserRegistrationForm
     template_name = 'users/register.html'
     success_url = reverse_lazy('users:login')
-    success_message = 'Вы успешно зарегестрировались!'
+    success_message = 'Вы успешно зарегестрировались! Письмо с подтверждением отправлено на вашу почту'
     title = 'GeekShop - Регистрация'
 
 

@@ -1,6 +1,6 @@
 from django import forms
 
-from users.forms import UserRegistrationForm, UserProfileForm
+from users.forms import UserProfileForm, UserRegistrationForm
 from users.models import User
 
 

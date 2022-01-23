@@ -1,12 +1,12 @@
-from django.shortcuts import render, HttpResponseRedirect
-from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.shortcuts import HttpResponseRedirect, render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.list import ListView
 
+from admins.forms import UserAdminProfileForm, UserAdminRegisterForm
 from users.models import User
-from admins.forms import UserAdminRegisterForm, UserAdminProfileForm
 
 
 @user_passes_test(lambda u: u.is_superuser)

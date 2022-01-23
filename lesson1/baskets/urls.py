@@ -1,6 +1,6 @@
 from django.urls import path
 
-from baskets.views import basket_add, basket_remove, basket_edit
+from baskets.views import basket_add, basket_edit, basket_remove
 
 app_name = 'baskets'
 

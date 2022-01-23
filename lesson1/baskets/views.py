@@ -1,10 +1,10 @@
-from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.shortcuts import HttpResponseRedirect
+from django.template.loader import render_to_string
 
-from products.models import Product
 from baskets.models import Basket
+from products.models import Product
 
 
 @login_required

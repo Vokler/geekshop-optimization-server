@@ -47,7 +47,6 @@ class UserEmailVerification(CommonContextMixin, TemplateView):
         if email_verification.exists() and not email_verification.last().is_expired():
             user.is_verified_email = True
             user.save()
-            login(request, user)
             return super(UserEmailVerification, self).get(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse_lazy('index'))

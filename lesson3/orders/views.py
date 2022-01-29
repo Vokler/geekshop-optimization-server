@@ -1,10 +1,11 @@
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
+from django.views.generic.list import ListView
 
 from common.views import CommonContextMixin
 from orders.forms import OrderForm
 from baskets.models import Basket
-from orders.models import Order, OrderItem
+from orders.models import Order
 
 
 class OrderCreateView(CommonContextMixin, FormView):
@@ -27,3 +28,8 @@ class OrderCreateView(CommonContextMixin, FormView):
         order = Order.objects.create(user=self.request.user, billing_address=billing_address)
         order.create_order_items()
         return order
+
+
+class OrderListView(ListView):
+    model = Order
+    template_name = 'orders/orders.html'

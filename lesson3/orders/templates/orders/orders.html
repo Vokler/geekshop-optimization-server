@@ -6,5 +6,37 @@
 {% endblock %}
 
 {% block content %}
-
+    <section>
+        <div class="container">
+            <div class="text-center mt-5">
+                <h1>Заказы</h1>
+                <div class="orders mt-5">
+                    <table class="table">
+                        <thead>
+                        <tr class="table-light">
+                            <th scope="col">#</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Создан</th>
+                            <th scope="col">Итого</th>
+                            <th scope="col">Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in order_list %}
+                            <tr>
+                                <th scope="row">{{ order.id }}</th>
+                                <td>Оформляется</td>
+                                <td>{{ order.created_timestamp }}</td>
+                                <td>5 070 руб.</td>
+                                <td>
+                                    <a href="#">просмотреть</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

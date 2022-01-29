@@ -10,6 +10,9 @@ class Order(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f'Заказ №{self.id}'
+
     def create_order_items(self):
         baskets = self.user.basket_set.all()
         for basket in baskets:

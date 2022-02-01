@@ -5,8 +5,19 @@ from products.models import Product
 
 
 class Order(models.Model):
+    BEING_PROCESSED = 'being_processed'
+    ON_THE_WAY = 'on_the_way'
+    DELIVERED = 'delivered'
+
+    STATUSES = (
+        (BEING_PROCESSED, 'Оформляется'),
+        (ON_THE_WAY, 'В пути'),
+        (DELIVERED, 'Доставлен'),
+    )
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     billing_address = models.JSONField(default=dict)
+    status = models.CharField(max_length=20, choices=STATUSES, default=BEING_PROCESSED)
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_timestamp = models.DateTimeField(auto_now=True)
 

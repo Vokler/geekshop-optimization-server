@@ -13,6 +13,6 @@ class OrderItemAdminInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'user', 'created_timestamp')
-    fields = ('user', 'billing_address', ('created_timestamp', 'updated_timestamp'))
+    fields = ('user', 'billing_address', 'status', ('created_timestamp', 'updated_timestamp'))
     readonly_fields = ('created_timestamp', 'updated_timestamp')
     inlines = (OrderItemAdminInline,)

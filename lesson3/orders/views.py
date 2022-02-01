@@ -1,6 +1,7 @@
 from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic.list import ListView
+from django.contrib import messages
 from django.views.generic.detail import DetailView
 
 from common.views import CommonContextMixin
@@ -13,7 +14,7 @@ class OrderCreateView(CommonContextMixin, FormView):
     title = 'GeekShop - Оформление заказа'
     form_class = OrderForm
     template_name = 'orders/checkout_order.html'
-    success_url = reverse_lazy('orders:order_list')
+    success_url = reverse_lazy('orders:order_create')
 
     def get_context_data(self, **kwargs):
         context = super(OrderCreateView, self).get_context_data(**kwargs)
@@ -21,7 +22,8 @@ class OrderCreateView(CommonContextMixin, FormView):
         return context
 
     def form_valid(self, form):
-        self._create_order(form.data)
+        order = self._create_order(form.data)
+        messages.success(self.request, self._create_success_message(order))
         return super(OrderCreateView, self).form_valid(form)
 
     def _create_order(self, data):
@@ -30,6 +32,13 @@ class OrderCreateView(CommonContextMixin, FormView):
         order = Order.objects.create(user=self.request.user, billing_address=billing_address)
         order.create_order_items()
         return order
+
+    def _create_success_message(self, obj):
+        link = reverse('orders:order_list')
+        message = 'Заказ №{} оформлен.' \
+                  'Перейти к ' \
+                  '<a href="{}" class="alert-link">списку заказов</a>'.format(obj.id, link)
+        return message
 
 
 class OrderListView(CommonContextMixin, ListView):

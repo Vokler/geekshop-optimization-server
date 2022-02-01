@@ -10,7 +10,7 @@
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-success text-center" role="alert">
-                    Заказ №123456 оформлен. Перейти к <a href="orders.html" class="alert-link">списку заказов</a>
+                    {{ message }}
                 </div>
             {% endfor %}
         {% endif %}

@@ -13,6 +13,9 @@ class Order(models.Model):
     def __str__(self):
         return f'Заказ №{self.id}'
 
+    def total_sum(self):
+        return sum(item.quantity * item.product.price for item in self.orderitem_set.all())
+
     def create_order_items(self):
         baskets = self.user.basket_set.all()
         for basket in baskets:

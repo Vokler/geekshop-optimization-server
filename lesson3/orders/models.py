@@ -14,7 +14,7 @@ class Order(models.Model):
         return f'Заказ №{self.id}'
 
     def total_sum(self):
-        return sum(item.quantity * item.product.price for item in self.orderitem_set.all())
+        return sum(item.sum() for item in self.orderitem_set.all())
 
     def create_order_items(self):
         baskets = self.user.basket_set.all()
@@ -27,3 +27,6 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField(default=0)
+
+    def sum(self):
+        return self.product.price * self.quantity

@@ -29,7 +29,9 @@
                                 <td>{{ order.created_timestamp }}</td>
                                 <td>{{ order.total_sum }} руб.</td>
                                 <td>
-                                    <a href="#">просмотреть</a>
+                                    <a href="{% url 'orders:order_detail' order.id %}">
+                                        просмотреть
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}

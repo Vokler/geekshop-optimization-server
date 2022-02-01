@@ -1,6 +1,7 @@
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from common.views import CommonContextMixin
 from orders.forms import OrderForm
@@ -30,6 +31,15 @@ class OrderCreateView(CommonContextMixin, FormView):
         return order
 
 
-class OrderListView(ListView):
+class OrderListView(CommonContextMixin, ListView):
+    title = 'GeekShop - Заказы'
     model = Order
     template_name = 'orders/orders.html'
+
+
+class OrderDetailView(CommonContextMixin, DetailView):
+    model = Order
+    template_name = 'orders/order.html'
+
+    def get_title(self):
+        return f'GeekShop - Заказ №{self.object.id}'

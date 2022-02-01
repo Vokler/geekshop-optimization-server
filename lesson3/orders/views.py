@@ -13,7 +13,7 @@ class OrderCreateView(CommonContextMixin, FormView):
     title = 'GeekShop - Оформление заказа'
     form_class = OrderForm
     template_name = 'orders/checkout_order.html'
-    success_url = reverse_lazy('orders:order_create')
+    success_url = reverse_lazy('orders:order_list')
 
     def get_context_data(self, **kwargs):
         context = super(OrderCreateView, self).get_context_data(**kwargs)
@@ -25,7 +25,8 @@ class OrderCreateView(CommonContextMixin, FormView):
         return super(OrderCreateView, self).form_valid(form)
 
     def _create_order(self, data):
-        billing_address = data.dict().pop('csrfmiddlewaretoken')
+        billing_address = data.dict()
+        billing_address.pop('csrfmiddlewaretoken')
         order = Order.objects.create(user=self.request.user, billing_address=billing_address)
         order.create_order_items()
         return order

@@ -36,6 +36,10 @@ class OrderListView(CommonContextMixin, ListView):
     model = Order
     template_name = 'orders/orders.html'
 
+    def get_queryset(self):
+        queryset = super(OrderListView, self).get_queryset()
+        return queryset.filter(user=self.request.user)
+
 
 class OrderDetailView(CommonContextMixin, DetailView):
     model = Order
@@ -43,3 +47,7 @@ class OrderDetailView(CommonContextMixin, DetailView):
 
     def get_title(self):
         return f'GeekShop - Заказ №{self.object.id}'
+
+    def get_queryset(self):
+        queryset = super(OrderDetailView, self).get_queryset()
+        return queryset.filter(user=self.request.user)

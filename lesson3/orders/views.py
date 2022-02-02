@@ -5,7 +5,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
-from baskets.models import Basket
 from common.views import CommonContextMixin
 from orders.forms import OrderForm
 from orders.models import Order
@@ -16,11 +15,6 @@ class OrderCreateView(CommonContextMixin, FormView):
     form_class = OrderForm
     template_name = 'orders/checkout_order.html'
     success_url = reverse_lazy('orders:order_create')
-
-    def get_context_data(self, **kwargs):
-        context = super(OrderCreateView, self).get_context_data(**kwargs)
-        context['baskets'] = Basket.objects.filter(user=self.request.user)
-        return context
 
     def form_valid(self, form):
         order = self._create_order(form.data)

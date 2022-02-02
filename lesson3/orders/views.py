@@ -8,6 +8,7 @@ from common.views import CommonContextMixin
 from orders.forms import OrderForm
 from baskets.models import Basket
 from orders.models import Order
+from django.utils.safestring import mark_safe
 
 
 class OrderCreateView(CommonContextMixin, FormView):
@@ -35,16 +36,17 @@ class OrderCreateView(CommonContextMixin, FormView):
 
     def _create_success_message(self, obj):
         link = reverse('orders:order_list')
-        message = 'Заказ №{} оформлен.' \
+        message = 'Заказ №{} оформлен. ' \
                   'Перейти к ' \
                   '<a href="{}" class="alert-link">списку заказов</a>'.format(obj.id, link)
-        return message
+        return mark_safe(message)
 
 
 class OrderListView(CommonContextMixin, ListView):
     title = 'GeekShop - Заказы'
     model = Order
     template_name = 'orders/orders.html'
+    ordering = ('-created_timestamp',)
 
     def get_queryset(self):
         queryset = super(OrderListView, self).get_queryset()

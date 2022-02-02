@@ -1,14 +1,14 @@
-from django.views.generic.edit import FormView
-from django.urls import reverse_lazy, reverse
-from django.views.generic.list import ListView
 from django.contrib import messages
+from django.urls import reverse, reverse_lazy
+from django.utils.safestring import mark_safe
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 
+from baskets.models import Basket
 from common.views import CommonContextMixin
 from orders.forms import OrderForm
-from baskets.models import Basket
 from orders.models import Order
-from django.utils.safestring import mark_safe
 
 
 class OrderCreateView(CommonContextMixin, FormView):

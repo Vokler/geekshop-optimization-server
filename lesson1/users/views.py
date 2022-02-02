@@ -36,7 +36,7 @@ class UserProfileView(CommonContextMixin, UpdateView):
         return reverse_lazy('users:profile', args=(self.object.id,))
 
 
-class UserEmailVerification(CommonContextMixin, TemplateView):
+class EmailVerificationView(CommonContextMixin, TemplateView):
     title = 'GeekShop - Подтверждение электронной почты'
     template_name = 'users/email_verification.html'
 
@@ -48,6 +48,6 @@ class UserEmailVerification(CommonContextMixin, TemplateView):
             user.is_verified_email = True
             user.save()
             login(request, user)
-            return super(UserEmailVerification, self).get(request, *args, **kwargs)
+            return super(EmailVerificationView, self).get(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse_lazy('index'))

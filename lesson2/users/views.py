@@ -1,4 +1,3 @@
-from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import HttpResponseRedirect
@@ -7,6 +6,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 
 from common.views import CommonContextMixin
+from users.common import get_user_location
 from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
 from users.models import EmailVerification, User
 
@@ -15,6 +15,12 @@ class UserLoginView(CommonContextMixin, LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
     title = 'GeekShop - Авторизация'
+
+    def form_valid(self, form):
+        user = form.get_user()
+        location = get_user_location(self.request)
+        user.update_or_create_location(**location)
+        return super(UserLoginView, self).form_valid(form)
 
 
 class UserRegistrationView(CommonContextMixin, SuccessMessageMixin, CreateView):

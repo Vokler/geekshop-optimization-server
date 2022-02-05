@@ -179,3 +179,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+# Geolocation
+
+GEOIP_PATH = BASE_DIR / 'geoip'

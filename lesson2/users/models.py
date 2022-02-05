@@ -10,6 +10,17 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='users_images', blank=True)
     is_verified_email = models.BooleanField(default=True)
 
+    def update_or_create_location(self, **kwargs):
+        location = UserLocation.objects.update_or_create(
+            user=self, defaults={'city': kwargs['city'], 'country': kwargs['country_name']})
+        return location
+
+
+class UserLocation(models.Model):
+    city = models.CharField(max_length=128)
+    country = models.CharField(max_length=128)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
 
 class EmailVerification(models.Model):
     code = models.UUIDField(unique=True)

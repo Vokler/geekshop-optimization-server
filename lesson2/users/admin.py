@@ -1,12 +1,18 @@
 from django.contrib import admin
 
 from baskets.admin import BasketAdmin
-from users.models import EmailVerification, User
+from users.models import EmailVerification, User, UserLocation
+
+
+class UserLocationAdminInline(admin.TabularInline):
+    model = UserLocation
+    fields = ('city', 'country')
+    extra = 0
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    inlines = (BasketAdmin,)
+    inlines = (BasketAdmin, UserLocationAdminInline)
 
 
 @admin.register(EmailVerification)
